@@ -1,0 +1,84 @@
+---
+title: "session 3"
+author: "martin"
+date: "13/01/2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+
+library(tidyverse)
+library(dplyr)
+mobile<-read_csv("https://raw.githubusercontent.com/vmandela99/Class-assignment-12th-july-2019/master/mobilemoney_data.csv")
+
+view(mobile)
+
+library(skimr)
+skimr::skim(mobile)
+```
+
+
+## show the number of accounts present
+```{r}
+mobile$account_type <- as.factor(mobile$account_type)
+mobile%>%count(mobile$account_type)
+```
+## district that has many people
+```{r}
+mobile %>% count(mobile$district)
+```
+district c has the highest number of people
+
+
+##percentage of people from district A with sacco account
+
+```{r}
+mobile %>% filter(district=="District_A") %>% count(district,account_type) %>% mutate(percent=n/sum(n)*100)
+
+```
+18.2% of people from district A have sacco account
+
+
+##how many grades completed are there
+```{r}
+mobile$highest_grade_completed<-as.factor(mobile$highest_grade_completed)
+mobile %>%count(highest_grade_completed)
+```
+15 grades completed
+
+##largest weight in the survey
+```{r}
+ max(mobile$weight)
+```
+48.25 was the largest weigh trecorded
+
+
+## percentage of people in the universsity with mobile money account
+```{r}
+mobile %>% filter(highest_grade_completed=="university") %>% count(highest_grade_completed,account_type) %>% mutate(percent=n/sum(n)*100)
+
+```
+32.4% of people in the university have mobile account
+
+```{r}
+library(ggplot2)
+mobile %>% count(account_type) %>%mutate(account_type=fct_reorder(account_type,n)) %>%  ggplot(aes(x=account_type,y=n))+geom_col(fill="red")
+```
+
+
+```{r}
+mobile %>% count(district) %>%mutate(district=fct_reorder(district,n)) %>%  ggplot(aes(x=district,y=n))+geom_col(fill="yellow")+coord_flip()
+```
+
+```{r}
+library(ggthemes)
+mobile %>% ggplot(aes(x=account_type,y=age))+geom_boxplot(fill="blue")+theme_economist()
+```
+
+
+
+
+
+

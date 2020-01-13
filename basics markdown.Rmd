@@ -1,0 +1,25 @@
+---
+title: "introduction"
+author: "martin"
+date: "10/01/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+#write a sequence of numbers
+s<-seq(1,90,5)
+s3<-seq(-10,30,3)
+#matrices
+library(matlib)
+#Logical expressions
+d1<-c(1,1,1,0)
+d2<-c(1,0,0,0)
+d2dand<-d1 & d2
+```
+
